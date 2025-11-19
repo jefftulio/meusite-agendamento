@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MV Estética Automotiva - Agendamento</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+    }
+    header {
+      background: #d40000;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      color: #d40000;
+      margin-top: 40px;
+    }
+    form {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      background: #222;
+      color: #fff;
+    }
+    textarea {
+      min-height: 80px;
+    }
+    .btn-submit {
+      margin-top: 20px;
+      background: #25d366;
+      color: #000;
+      padding: 12px;
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      background: #000;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>MV Estética Automotiva</header>
+
+  <div class="container">
+    <h2>Agendamento de Serviço</h2>
+    <p>Escolha o serviço, defina a data e hora e finalize no WhatsApp.</p>
+
+    <form id="agendamentoForm">
+
+      <label>Nome Completo:</label>
+      <input type="text" id="nome" required>
+
+      <label>Telefone:</label>
+      <input type="text" id="telefone" required>
+
+      <label>Serviço Principal:</label>
+      <select id="servico" required>
+        <option value="Higienização Completa">Higienização Completa</option>
+        <option value="Polimento Técnico">Polimento Técnico</option>
+        <option value="Pintura Automotiva">Pintura Automotiva</option>
+        <option value="Lavagem Detalhada">Lavagem Detalhada</option>
+      </select>
+
+      <label>Serviços Extras:</label>
+      <select id="extras" multiple>
+        <option value="Limpeza de Bancos">Limpeza de Bancos</option>
+        <option value="Limpeza Técnica">Limpeza Técnica</option>
+        <option value="Limpeza Detalhada">Limpeza Detalhada</option>
+        <option value="Higienização">Higienização</option>
+        <option value="Guariba">Guariba</option>
+        <option value="Limpeza do Teto">Limpeza do Teto</option>
+        <option value="Limpeza do Carpete">Limpeza do Carpete</option>
+      </select>
+
+      <label>Data do Agendamento:</label>
+      <input type="date" id="data" required>
+
+      <label>Horário disponível:</label>
+      <select id="hora" required>
+        <option value="08:00">08:00</option>
+        <option value="10:00">10:00</option>
+        <option value="13:00">13:00</option>
+        <option value="15:00">15:00</option>
+      </select>
+
+      <label>Observações:</label>
+      <textarea id="obs" placeholder="Descreva mais detalhes se desejar..."></textarea>
+
+      <button type="button" class="btn-submit" onclick="enviarWhatsApp()">Finalizar Agendamento via WhatsApp</button>
+    </form>
+  </div>
+
+  <footer>
+    © 2025 MV Estética Automotiva — Todos os direitos reservados.
+  </footer>
+
+  <script>
+    function enviarWhatsApp() {
+      const nome = document.getElementById('nome').value;
+      const tel = document.getElementById('telefone').value;
+      const servico = document.getElementById('servico').value;
+
+      const extrasSel = Array.from(document.getElementById('extras').selectedOptions).map(op=>op.value).join(', ');
+
+      const data = document.getElementById('data').value;
+      const hora = document.getElementById('hora').value;
+      const obs = document.getElementById('obs').value;
+
+      const mensagem = encodeURIComponent(
+        `Novo Agendamento:%0A` +
+        `Nome: ${nome}%0A` +
+        `Telefone: ${tel}%0A` +
+        `Serviço: ${servico}%0A` +
+        `Extras: ${extrasSel}%0A` +
+        `Data: ${data}%0A` +
+        `Horário: ${hora}%0A` +
+        `Observações: ${obs}`
+      );
+
+      const numero = "55999999999"; // SEU NÚMERO AQUI
+      window.open(`https://wa.me/${numero}?text=${mensagem}`, '_blank');
+    }
+  </script>
+</body>
+</html>
